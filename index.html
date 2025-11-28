@@ -35,7 +35,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* 🌟 شاشة البداية */
     #intro-screen {
       position: fixed;
       top: 0; left: 0;
@@ -64,7 +63,6 @@
       to { opacity: 0; visibility: hidden; }
     }
 
-    /* ✨ نجوم الخلفية */
     .stars {
       position: absolute;
       width: 100%;
@@ -91,7 +89,6 @@
       100% { transform: translateY(0) scale(1); opacity: 0.8; }
     }
 
-    /* 🟩 البطاقة */
     .card {
       position: relative;
       background: rgba(27, 27, 27, 0.9);
@@ -248,7 +245,6 @@
 
     .visits.show span { opacity: 1; }
 
-    /* 🌞 وضع النهار */
     body.light {
       background: var(--bg-light);
       color: #111;
@@ -270,7 +266,6 @@
       color: white;
     }
 
-    /* 🟢 شريط التمرير الجانبي */
     #scroll-progress {
       position: fixed;
       right: 10px;
@@ -287,10 +282,8 @@
 </head>
 <body>
 
-  <!-- 🟢 شريط التمرير الجانبي -->
   <div id="scroll-progress"></div>
 
-  <!-- 🌟 شاشة البداية -->
   <div id="intro-screen">
     <img src="انترو.jpg" alt="Intro Logo">
   </div>
@@ -313,14 +306,11 @@
       <a href="https://www.tiktok.com/@dr.hithoom7" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
       <a href="https://www.snapchat.com/add/dr_hitham?share_id=6z1l80Kf8Mk&locale=ar-AA_" target="_blank"><i class="fab fa-snapchat-ghost"></i> Snapchat</a>
       <a href="https://x.com/dr_hitham_" target="_blank"><i class="fab fa-x-twitter"></i> </a>
-          <a href="tel:+201095951870" class="call-button"><i class="fa fa-phone"></i> Call Me Now</a>
 
     </div>
+          <a href="tel:+201095951870" class="call-button"><i class="fa fa-phone"></i> Call Me Now</a>
 
-<a href="#" class="call-button" onclick="saveContact()">
-  <i class="fa fa-download"></i> Save the contact
-</a>
-
+   
     <footer>© جميع الحقوق محفوظة</footer>
     <footer>مُــخــتــلــف</footer>
 
@@ -331,7 +321,7 @@
   </div>
 
   <script>
-    // 🌙 تبديل الوضع الليلي / النهاري
+    // 🌙 تبديل اللون
     const toggleButton = document.getElementById('theme-toggle');
     const body = document.body;
     const savedTheme = localStorage.getItem('theme');
@@ -347,16 +337,7 @@
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
-    // 🔢 عداد الزيارات
-    let count = localStorage.getItem('visitCount') || 0;
-    count++;
-    localStorage.setItem('visitCount', count);
-    document.getElementById('visit-count').textContent = count;
-    document.getElementById('visits').addEventListener('click', e => {
-      e.currentTarget.classList.toggle('show');
-    });
-
-    // ✨ توليد النجوم
+    // ⭐ توليد النجوم
     const starsContainer = document.getElementById('stars');
     for (let i = 0; i < 70; i++) {
       const star = document.createElement('span');
@@ -367,13 +348,13 @@
       starsContainer.appendChild(star);
     }
 
-    // 🕓 تسلسل ظهور الأزرار
+    // 🟢 تسلسل ظهور الأزرار
     const links = document.querySelectorAll('.links a');
     links.forEach((link, index) => {
       link.style.animationDelay = `${index * 0.2 + 3.5}s`;
     });
 
-    // 🟢 شريط التمرير الجانبي
+    // شريط التمرير
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -381,25 +362,23 @@
       document.getElementById('scroll-progress').style.height = scrollPercent + '%';
     });
 
+    // 🔥 عداد الزيارات عبر CountAPI + تحديث كل دقيقة
+    function updateVisits() {
+      fetch("https://api.countapi.xyz/hit/dr-hitham-essam/visits")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("visit-count").textContent = data.value;
+        });
+    }
 
-    function saveContact() {
-    const vcardData =
-`BEGIN:VCARD
-VERSION:3.0
-FN:Dr Hitham Essam
-TEL;TYPE=CELL:+201095951870
-END:VCARD`;
+    updateVisits();             // تحديث أول ما الصفحة تفتح
+    setInterval(updateVisits, 60000); // تحديث كل دقيقة
 
-    const blob = new Blob([vcardData], { type: 'text/vcard' });
-    const url = URL.createObjectURL(blob);
+    document.getElementById('visits').addEventListener('click', e => {
+      e.currentTarget.classList.toggle('show');
+    });
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = "Dr_Hitham_Essam.vcf";
-    link.click();
 
-    URL.revokeObjectURL(url);
-}
   </script>
 </body>
 </html>

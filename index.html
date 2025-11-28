@@ -313,7 +313,6 @@
       <a href="https://www.tiktok.com/@dr.hithoom7" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
       <a href="https://www.snapchat.com/add/dr_hitham?share_id=6z1l80Kf8Mk&locale=ar-AA_" target="_blank"><i class="fab fa-snapchat-ghost"></i> Snapchat</a>
       <a href="https://x.com/dr_hitham_" target="_blank"><i class="fab fa-x-twitter"></i> </a>
-      
     </div>
 
     <a href="tel:+201095951870" class="call-button"><i class="fa fa-phone"></i> Call Me Now</a>
@@ -377,39 +376,6 @@
       const scrollPercent = (scrollTop / docHeight) * 100;
       document.getElementById('scroll-progress').style.height = scrollPercent + '%';
     });
-
-
-    // اسم العدّاد الخاص بك
-const counterName = "a-different-counter";
-
-// تحديث الرقم داخل الـ span
-function updateCount(value) {
-  document.getElementById("visit-count").innerText = value;
-}
-
-// جلب العدد كل 30 ثانية
-function loadVisits() {
-  fetch(`https://api.countapi.xyz/get/${counterName}/visits`)
-    .then(res => res.json())
-    .then(data => {
-      updateCount(data.value);
-    });
-}
-
-// زيادة العدد عند دخول الشخص
-function increaseVisit() {
-  fetch(`https://api.countapi.xyz/hit/${counterName}/visits`)
-    .then(res => res.json())
-    .then(data => {
-      updateCount(data.value);
-    });
-}
-
-// أول دخول → زوّد العدد
-increaseVisit();
-
-// كل 30 ثانية → حدّث الرقم للجميع
-setInterval(loadVisits, 30000);
   </script>
 </body>
 </html>

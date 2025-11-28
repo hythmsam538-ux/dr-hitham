@@ -377,6 +377,39 @@
       const scrollPercent = (scrollTop / docHeight) * 100;
       document.getElementById('scroll-progress').style.height = scrollPercent + '%';
     });
+
+
+    // اسم العدّاد الخاص بك
+const counterName = "a-different-counter";
+
+// تحديث الرقم داخل الـ span
+function updateCount(value) {
+  document.getElementById("visit-count").innerText = value;
+}
+
+// جلب العدد كل 30 ثانية
+function loadVisits() {
+  fetch(`https://api.countapi.xyz/get/${counterName}/visits`)
+    .then(res => res.json())
+    .then(data => {
+      updateCount(data.value);
+    });
+}
+
+// زيادة العدد عند دخول الشخص
+function increaseVisit() {
+  fetch(`https://api.countapi.xyz/hit/${counterName}/visits`)
+    .then(res => res.json())
+    .then(data => {
+      updateCount(data.value);
+    });
+}
+
+// أول دخول → زوّد العدد
+increaseVisit();
+
+// كل 30 ثانية → حدّث الرقم للجميع
+setInterval(loadVisits, 30000);
   </script>
 </body>
 </html>

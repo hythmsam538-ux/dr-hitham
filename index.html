@@ -360,7 +360,7 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-  const visitRef = ref(db, "visitCount");
+  const visitRef = ref(db, "visitCount_dr");
 
   // تحديث العدد مباشرة عند أي تغيير
   onValue(visitRef, snapshot => {
